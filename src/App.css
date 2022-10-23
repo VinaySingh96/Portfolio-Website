@@ -1,6 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 body{
   background-color: #121212;
   color: white;
+  font-family: 'Poppins', sans-serif;
+  height: 200vh;
 }
 .nav{
   color: antiquewhite;
@@ -12,8 +16,75 @@ body{
 .name{
   margin-top: 30px;
 }
-h2,h5{
+h1,h2,h3,h4,h5,h6{
   text-align: center;
-  margin-top: 0;
+  margin-top: 6px;
   margin-bottom: 0;
+}
+a{
+  text-decoration: none;
+}
+a:hover{
+  color: white;
+}
+.btn{
+  color: #1818f584;
+  border: 2px solid #1818f584;
+  padding: 12px;
+  /* margin-right: 10px; */
+  border-radius: 3px;
+}
+.btn:hover{
+  color: black;
+  background: white;
+}
+html{
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar{
+  display: none;  
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.nav{
+  height: 8vh;
+  background-color: #181818;
+  width: 40vw;
+  color: white;
+  position: fixed;
+  bottom: 6vh;
+  border-radius: 6vw;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 20px;
+}
+.mt5{
+  margin-top: 5vh;
+}
+
+.codingLinks{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left:8vw;
+  font-size: 1.5rem;
+  bottom: 3rem;
+  justify-content: center;
+
+}
+
+.me{
+  margin-top: 4rem;
+  position: absolute;
+  height:14rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
