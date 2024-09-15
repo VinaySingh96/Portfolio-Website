@@ -1,9 +1,9 @@
-import './App.css';
-import Navbar from './Navbar';
-import CTA from './CTA';
-import CodingProfiles from './CodingProfiles';
+import CodingProfiles from "./CodingProfiles";
+import CTA from "./CTA";
+import Navbar from "./Navbar";
 import myPic from './Assets/myPic.jpg';
-function App() {
+
+const Old = () => {
   return (
     <>
     <div className='name'> 
@@ -18,7 +18,7 @@ function App() {
       <CodingProfiles />
       <Navbar />
     </>
-  );
+  )
 }
 
-export default App;
+export default Old;
