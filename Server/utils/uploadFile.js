@@ -33,19 +33,15 @@ cloudinary.config({
 
 async function uploadToCloudinary(filepath) {
   try {
-    const response = cloudinary.uploader.upload(filepath, {
+    const response = await cloudinary.uploader.upload(filepath, {
       resource_type: 'raw'
     });
     console.log('-------------> File uploaded to cloudinary successfully ✅' )
     return response;
   } catch (error) {
-    console.log('Upload to cloudinary failed! ❎', error)
+    throw new Error('-------------> Upload to cloudinary failed! ❎', error);
   }
-
-  return cloudinaryStorage;
 }
-
-
 
 const multerUpload = multer({ storage: multer.diskStorage({}) });
 

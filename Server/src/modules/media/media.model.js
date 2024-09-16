@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 // update schema according to usage
 const MediaSchema = new mongoose.Schema(
   {
-    name: {
+    mediaType: {
       type: String,
       required: true,
       trim: true,
@@ -14,10 +14,10 @@ const MediaSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    sizeInBytes: {
-      type: Number,
-      required: true
-    },
+    // sizeInBytes: {
+    //   type: Number,
+    //   required: true
+    // },
     format: {
       type: String,
       required: true
@@ -28,13 +28,13 @@ const MediaSchema = new mongoose.Schema(
       required: true
     },
     path: {
-      type: String
+      type: String // file path when saved to local
     },
-    requestEntity: {
-      type: String,
-      required: true,
-      index: true
-    }
+    // requestEntity: {
+    //   type: String,
+    //   required: true,
+    //   index: true
+    // }
   },
   {
     timestamps: true,

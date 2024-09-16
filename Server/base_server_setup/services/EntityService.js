@@ -58,12 +58,12 @@ class EntityService extends BaseService {
   }
 
   async updateEntityById(reqBody, reqParams, reqQuery, ){
-    const updatedDoc = await this.model.findByIdAndUpdate(params.id, body, { new: true });
+    const updatedDoc = await this.model.findByIdAndUpdate(reqParams.id, reqBody, { new: true });
     return updatedDoc;
   }
 
   async deleteEntityById(reqBody, reqParams, reqQuery, ){
-    return this.model.findByIdAndDelete(params.id);
+    return this.model.findByIdAndDelete(reqParams.id);
   }
 }
 

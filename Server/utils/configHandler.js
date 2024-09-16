@@ -3,6 +3,7 @@ class ConfigHandler {
     if (ConfigHandler.instance) {
       return ConfigHandler.instance;
     }
+    ConfigHandler.instance = this;
     this.config = this.generateConfig(env);
   }
 

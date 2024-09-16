@@ -8,30 +8,36 @@ class MediaService extends EntityService {
     MediaService.instance = this;
   }
 
-  async createEntity(req) {
+  async createEntity(body, params, query, req) {
     /* Remove this from here, file will be upload from file and 
         call the entity service (which entity requests to upload file)
         which will store file references (ids).
     */
-    //  check if file is single or in array if array upload using parallel processing
+
+    if (!body.mediaType) throw new Error('MediaType is required!');
+  
+    //  check if file is single or in array if array upload using parallel processing    
     const files = req.files || [req.file];
 
-    const uploadedFiles = Promise.all(
+    const uploadedFiles = await Promise.all(
       files.map(async (file) => {
         const fileData = await uploadToCloudinary(file.path);
-        const body = {
-          name: file.originalname,
-          url: fileData.secure_url,
-          sizeInBytes: fileData.bytes,
-          format: file.mimetype,
-          storageType: "CLOUD",
-          requestEntity: "media",
-        };
-        return this.model.create(body);
+        body.url = fileData.secure_url;
+        body.format = file.mimetype;
+        body.storageType = 'CLOUD'
       })
     );
 
-    return uploadedFiles;
+    const filter = {
+      mediaType: body.mediaType
+    };
+    const options = {
+      new: true,
+      upsert: true
+    }
+    const updatedDoc = this.model.findOneAndUpdate(filter, body, options);
+
+    return updatedDoc;
   }
 }
 
