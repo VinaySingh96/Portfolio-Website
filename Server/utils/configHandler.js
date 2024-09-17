@@ -21,13 +21,14 @@ class ConfigHandler {
   }
 
   buildNestedConfig() {
+    console.log(process.env);
     Object.entries(process.env).filter(([key, value]) => key.startsWith('portfolio'));
     let flatConfig = Object.entries(process.env).filter(([key, value]) => key.startsWith('portfolio'));
     flatConfig = Object.fromEntries(flatConfig);
 
     const nestedConfig = this.unFlattenObject(flatConfig);
 
-    return nestedConfig.portfolio;
+    return nestedConfig.portfolio || {};
   }
 
   unFlattenObject(flatObject) {
