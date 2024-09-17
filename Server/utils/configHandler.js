@@ -21,7 +21,6 @@ class ConfigHandler {
   }
 
   buildNestedConfig() {
-    console.log(process.env);
     Object.entries(process.env).filter(([key, value]) => key.startsWith('portfolio'));
     let flatConfig = Object.entries(process.env).filter(([key, value]) => key.startsWith('portfolio'));
     flatConfig = Object.fromEntries(flatConfig);
@@ -35,7 +34,7 @@ class ConfigHandler {
     const result = {};
   
     for (const key in flatObject) {
-      const keys = key.split('.');
+      const keys = key.split('_');
       keys.reduce((acc, curKey, index, arr) => {
         if (index === arr.length - 1) {
           acc[curKey] = flatObject[key];
