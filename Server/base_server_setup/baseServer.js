@@ -46,7 +46,7 @@ async function initServer({ config, mode }) {
         console.log('-------------> Unable to start kafka producer -- ', error)
       }
       finally {
-        startServer({ port: 8001, app });
+        startServer({ port: config.port, app });
         return app;
       }
     case 'kafka':

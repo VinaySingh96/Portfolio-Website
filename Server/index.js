@@ -12,6 +12,7 @@ async function start() {
   const config = configHandler.getConfig();
 
   const mode = argv.mode || 'api';
+  config.port = process.env.PORT || config.port;
   const app = await initServer({ config, mode });
 
   const { connectToDatabase } = require('./src/dbUtils/createConnection');
