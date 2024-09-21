@@ -9,10 +9,13 @@ class FileUpload extends BaseController{
     super();
 
     if (FileUpload.instance) return FileUpload.instance;
+
+    FileUpload.instance = this;
+    this.initCloudinary();
   }
 
   initCloudinary() {
-    if (cloudinary.config) return;
+    // if (cloudinary.config) return;
     cloudinary.config({
       cloud_name: this.config.cloudinary.cloudName,
       api_key: this.config.cloudinary.apiKey,
@@ -21,14 +24,17 @@ class FileUpload extends BaseController{
     });
   }
 
-  async uploadToCloudinary(filepath, fileType) {
+  async uploadToCloudinary(filepath, fileType, fileName) {
     // this.initCloudinary();
+    const supportedFormat = ['image', 'audio', 'video'];
+    const payload = {
+      resource_type: supportedFormat.includes(fileType) ? fileType : 'raw',
+      folder: 'portfolio',  // Uploads files into 'portfolio' folder
+      allowed_formats: ['image', 'audio', 'video'].includes(fileType) ? ['jpg', 'png', 'jpeg', 'mp4', 'mp3', 'gif'] : undefined,
+      ...(!supportedFormat.includes(fileType) && { public_id: fileName, format: 'pdf' })
+    };
     try {
-      const response = await cloudinary.uploader.upload(filepath, {
-        resource_type: ['image', 'audio', 'video'].includes(fileType) ? fileType : 'raw',
-        folder: 'portfolio',  // Uploads files into 'portfolio' folder
-        allowed_formats: ['image', 'audio', 'video'].includes(fileType) ? ['jpg', 'png', 'jpeg', 'mp4', 'mp3', 'gif'] : undefined,
-      });
+      const response = await cloudinary.uploader.upload(filepath, payload);
       console.log('-------------> File uploaded to cloudinary successfully ✅' )
       return response;
     } catch (error) {

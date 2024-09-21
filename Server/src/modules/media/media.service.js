@@ -1,5 +1,5 @@
 const EntityService = require("../../../base_server_setup/services/EntityService");
-const { uploadToCloudinary } = require("../../../utils/uploadFile");
+const { FileUpload } = require('../../../base_server_setup/utils/FileUpload');
 
 class MediaService extends EntityService {
   constructor() {
@@ -15,13 +15,14 @@ class MediaService extends EntityService {
     */
 
     if (!body.mediaType) throw new Error('MediaType is required!');
-  
+    
+    const fileUpload = new FileUpload();
     //  check if file is single or in array if array upload using parallel processing    
     const files = req.files || [req.file];
 
     const uploadedFiles = await Promise.all(
       files.map(async (file) => {
-        const fileData = await uploadToCloudinary(file.path);
+        const fileData = await fileUpload.uploadToCloudinary(file.path, file.mimetype.split('/')[0], file.originalname);
         body.url = fileData.secure_url;
         body.format = file.mimetype;
         body.storageType = 'CLOUD'
@@ -35,6 +36,8 @@ class MediaService extends EntityService {
       new: true,
       upsert: true
     }
+    // TODO: use this.model.create when doc not exist(it runs validations unlike findOneAndUpdate)
+    // const updatedDoc = this.model.create(body);
     const updatedDoc = this.model.findOneAndUpdate(filter, body, options);
 
     return updatedDoc;

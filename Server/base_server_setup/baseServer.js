@@ -23,7 +23,7 @@ async function initServer({ config, mode }) {
       const app = express();
       app.use(
         cors({
-          origin: "*",
+          origin: config.allowedOrigins || "*",
           methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "HEAD"],
           allowedHeaders: ["Content-Type", "Authorization", "Accept"],
           credentials: true,

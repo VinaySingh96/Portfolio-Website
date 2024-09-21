@@ -15,7 +15,7 @@ class ProjectService extends EntityService{
     const uploadedFiles = await Promise.all(
       files.map(async (file, index) => {
         const fileData = await fileUpload.uploadToCloudinary(file.path, file.mimetype.split('/')[0]);
-        if (index === 1) body.thumbnails = fileData.secure_url;
+        if (index === 0) body.thumbnails = fileData.secure_url;
         body.photos.push(fileData.secure_url);
         // Add this file details to file service
         // const body = {

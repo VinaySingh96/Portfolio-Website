@@ -32,7 +32,7 @@ const TypingAnimation = ({texts}) => {
   }, [displayText, isDeleting, textIndex]);
 
   return (
-    <div className="text-4xl font-semibold text-headings whitespace-nowrap">
+    <div className="text-3xl font-semibold text-headings whitespace-nowrap">
       <h2>{displayText}</h2>
     </div>
   );
