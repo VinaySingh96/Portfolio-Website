@@ -5,6 +5,7 @@ import { BiDownload } from "react-icons/bi";
 import resume from "../Assets/resume.pdf";
 import { links } from "../data/links";
 import { redirectToLink } from "../utils/commonFunction";
+import QRCode from "qrcode";
 
 const Home = () => {
   const myRoles = ["Fullstack Developer", "Mobile App Developer"];
@@ -25,6 +26,30 @@ const Home = () => {
 
     console.log(process.env);
   }
+  
+  const handleRedirectToPayment = () => {
+    const upiUrl = `upi://pay?pa=vinayaksingh920@oksbi&pn=Vinay%20Singh&am=150.00&cu=INR`;
+  
+    QRCode.toDataURL(upiUrl, function (err, qrCodeDataUrl) {
+      if (err) return console.error(err);
+  
+      const newWindow = window.open('', '_blank');
+      if (newWindow) {
+        newWindow.document.write(`
+          <html>
+            <head><title>Scan to Pay</title></head>
+            <body style="display: flex; align-items: center; justify-content: center; height: 100vh;">
+              <div style="text-align: center;">
+                <h2>Scan this QR to Pay ₹150</h2>
+                <img src="${qrCodeDataUrl}" alt="UPI QR Code" />
+              </div>
+            </body>
+          </html>
+        `);
+      }
+    });
+  };
+  
 
   return (
     <div className="bg-center bg-no-repeat flex">
@@ -69,6 +94,13 @@ const Home = () => {
             >
               <span>Download Resume</span>
               <BiDownload className="ml-4" />
+            </button>
+            <button
+              className="bg-gray-700 active:bg-gray-700 hover:bg-gray-200 hover:text-gray-700 text-headings font-bold py-2 px-8 rounded text-lg flex items-center justify-between transition-all duration-200"
+              onClick={handleRedirectToPayment}
+            >
+              <span>Buy Me A Coffee ☕️</span>
+              {/* <BiDownload className="ml-4" /> */}
             </button>
           </div>
         </div>
